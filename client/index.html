@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A Subway-inspired store assistant demo built with .NET 10 and Microsoft Agent Framework."
+    />
+    <meta name="theme-color" content="#f5f7f4" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Subway Store Assistant · Demo</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Subway Store Assistant demo home">
+          <span class="brand-mark" aria-hidden="true">S</span>
+          <span class="brand-name">SUBWAY<span class="brand-dot">®</span></span>
+          <span class="brand-divider" aria-hidden="true"></span>
+          <span class="brand-product">Store Assistant <span class="demo-tag">DEMO</span></span>
+        </a>
+        <div class="topbar-right">
+          <span class="demo-notice"><span aria-hidden="true">●</span> Demo menu &amp; pricing</span>
+          <button id="new-chat" class="new-chat-button" type="button" aria-label="Start a new chat">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v12M4 10h12" /></svg>
+            <span>New chat</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="side-panel" aria-label="Assistant information and quick prompts">
+          <div class="welcome-block">
+            <span class="eyebrow">YOUR STORE SIDEKICK</span>
+            <h1>Fresh ideas.<br /><span>Fast answers.</span></h1>
+            <p>Explore the menu, get a quick order estimate, or find a tasty suggestion.</p>
+          </div>
+
+          <section class="quick-actions" aria-labelledby="quick-actions-title">
+            <div class="section-heading">
+              <h2 id="quick-actions-title">Quick actions</h2>
+              <span class="sparkle" aria-hidden="true">✳</span>
+            </div>
+            <button class="action-card" type="button" data-prompt="Show me the full demo menu.">
+              <span class="action-icon icon-menu" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 5h14M5 10h14M5 15h9M5 20h14" /></svg>
+              </span>
+              <span class="action-copy"><strong>Explore the menu</strong><small>See the demo sandwiches</small></span>
+              <svg class="action-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6" /></svg>
+            </button>
+            <button class="action-card" type="button" data-prompt="Estimate two footlong Turkey Breast sandwiches.">
+              <span class="action-icon icon-estimate" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M7 3h10v18H7zM10 7h4M10 12h1m3 0h.01M10 16h1m3 0h.01" /></svg>
+              </span>
+              <span class="action-copy"><strong>Estimate an order</strong><small>Get a sample subtotal</small></span>
+              <svg class="action-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6" /></svg>
+            </button>
+            <button class="action-card" type="button" data-prompt="Recommend a sandwich for me. Ask me what I like first.">
+              <span class="action-icon icon-recommend" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 3v2m0 14v2M3 12h2m14 0h2m-2.64-6.36-1.42 1.42M7.06 16.94l-1.42 1.42m0-12.72 1.42 1.42m9.88 9.88 1.42 1.42M15.5 12a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" /></svg>
+              </span>
+              <span class="action-copy"><strong>Get a recommendation</strong><small>Find your next favorite</small></span>
+              <svg class="action-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6" /></svg>
+            </button>
+            <button class="action-card" type="button" data-prompt="Can you confirm which of these sandwiches is safe for someone with a food allergy?">
+              <span class="action-icon icon-info" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 11v5m0-8h.01" /></svg>
+              </span>
+              <span class="action-copy"><strong>Ask about ingredients</strong><small>See how the demo responds</small></span>
+              <svg class="action-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6" /></svg>
+            </button>
+          </section>
+
+          <div class="safety-note">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.5 3 5v4.7c0 4 2.8 6.6 7 7.8 4.2-1.2 7-3.8 7-7.8V5l-7-2.5Z" /><path d="M10 6.5v4m0 2.5h.01" /></svg>
+            <p><strong>Just a demo</strong><br />Menu, prices, and suggestions are illustrative—not official Subway information.</p>
+          </div>
+          <div id="setup-note" class="setup-note" role="status" hidden></div>
+        </aside>
+
+        <section class="chat-panel" aria-label="Chat with the Subway Store Assistant">
+          <div class="chat-header">
+            <div class="assistant-avatar" aria-hidden="true">
+              <svg viewBox="0 0 28 28"><path d="M4 10h20v8H4zM6 8h16M7 20h14M8 13h.01M12 13h.01M16 13h.01M20 13h.01" /><path d="M7 18v2m14-2v2" /></svg>
+            </div>
+            <div class="chat-heading">
+              <h2>Subway Store Assistant</h2>
+              <p><span class="status-dot" id="status-dot"></span><span id="status-label">Connecting…</span><span class="header-separator">·</span> Here to help
+              </p>
+            </div>
+            <div class="powered-by">
+              <span class="powered-label">POWERED BY</span>
+              <strong>Microsoft Agent Framework</strong>
+            </div>
+          </div>
+
+          <div id="messages" class="messages" role="log" aria-live="polite" aria-relevant="additions text">
+            <div class="message-row assistant-row">
+              <div class="message-avatar" aria-hidden="true">S</div>
+              <div class="message-content">
+                <span class="message-author">Store Assistant</span>
+                <div class="message-bubble assistant-bubble">
+                  Hey there! 👋 I can help you explore our demo sandwich menu, estimate an order, or find something delicious. What sounds good?
+                </div>
+                <span class="message-time">Just now</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="composer-area">
+            <div class="composer-hint"><span class="hint-sparkle" aria-hidden="true">✳</span> Ask me anything, or pick a quick action on the left</div>
+            <form id="chat-form" class="composer">
+              <label class="visually-hidden" for="message-input">Your message</label>
+              <textarea id="message-input" name="message" rows="1" maxlength="2000" placeholder="Type your message…" autocomplete="off"></textarea>
+              <div class="composer-controls">
+                <span id="character-count" class="character-count">0 / 2000</span>
+                <button id="send-button" class="send-button" type="submit" aria-label="Send message" disabled>
+                  <span>Send</span>
+                  <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M17 3 9 11m8-8-5 14-3-6-6-3 14-5Z" /></svg>
+                </button>
+              </div>
+            </form>
+            <p class="composer-disclaimer">AI can make mistakes. Demo content is illustrative and should not be used for real menu, price, or allergy decisions.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
